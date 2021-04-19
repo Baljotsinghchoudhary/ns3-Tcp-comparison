@@ -1,0 +1,159 @@
+<?xml version="1.0" ?>
+<FlowMonitor>
+  <FlowStats>
+    <Flow flowId="1" timeFirstTxPacket="+0.0ns" timeFirstRxPacket="+45288399.0ns" timeLastTxPacket="+14439016684.0ns" timeLastRxPacket="+14484285883.0ns" delaySum="+131363643398.0ns" jitterSum="+4064301550.0ns" lastDelay="+45269199.0ns" txBytes="1006676" rxBytes="1005440" txPackets="2446" rxPackets="2443" lostPackets="3" timesForwarded="2443">
+      <delayHistogram nBins="162" >
+        <bin index="45" start="0.045" width="0.001" count="3" />
+        <bin index="46" start="0.046" width="0.001" count="1010" />
+        <bin index="47" start="0.047" width="0.001" count="3" />
+        <bin index="48" start="0.048" width="0.001" count="973" />
+        <bin index="50" start="0.05" width="0.001" count="22" />
+        <bin index="51" start="0.051" width="0.001" count="18" />
+        <bin index="53" start="0.053" width="0.001" count="15" />
+        <bin index="54" start="0.054" width="0.001" count="1" />
+        <bin index="55" start="0.055" width="0.001" count="98" />
+        <bin index="56" start="0.056" width="0.001" count="11" />
+        <bin index="57" start="0.057" width="0.001" count="23" />
+        <bin index="58" start="0.058" width="0.001" count="10" />
+        <bin index="59" start="0.059" width="0.001" count="3" />
+        <bin index="60" start="0.06" width="0.001" count="12" />
+        <bin index="61" start="0.061" width="0.001" count="8" />
+        <bin index="62" start="0.062" width="0.001" count="3" />
+        <bin index="63" start="0.063" width="0.001" count="7" />
+        <bin index="64" start="0.064" width="0.001" count="3" />
+        <bin index="65" start="0.065" width="0.001" count="9" />
+        <bin index="66" start="0.066" width="0.001" count="6" />
+        <bin index="67" start="0.067" width="0.001" count="3" />
+        <bin index="68" start="0.068" width="0.001" count="9" />
+        <bin index="70" start="0.07" width="0.001" count="8" />
+        <bin index="71" start="0.071" width="0.001" count="5" />
+        <bin index="72" start="0.072" width="0.001" count="3" />
+        <bin index="73" start="0.073" width="0.001" count="7" />
+        <bin index="75" start="0.075" width="0.001" count="6" />
+        <bin index="76" start="0.076" width="0.001" count="3" />
+        <bin index="77" start="0.077" width="0.001" count="3" />
+        <bin index="78" start="0.078" width="0.001" count="6" />
+        <bin index="80" start="0.08" width="0.001" count="5" />
+        <bin index="81" start="0.081" width="0.001" count="1" />
+        <bin index="82" start="0.082" width="0.001" count="3" />
+        <bin index="83" start="0.083" width="0.001" count="3" />
+        <bin index="85" start="0.085" width="0.001" count="3" />
+        <bin index="87" start="0.087" width="0.001" count="3" />
+        <bin index="88" start="0.088" width="0.001" count="3" />
+        <bin index="90" start="0.09" width="0.001" count="3" />
+        <bin index="92" start="0.092" width="0.001" count="2" />
+        <bin index="93" start="0.093" width="0.001" count="3" />
+        <bin index="95" start="0.095" width="0.001" count="3" />
+        <bin index="97" start="0.097" width="0.001" count="3" />
+        <bin index="98" start="0.098" width="0.001" count="3" />
+        <bin index="100" start="0.1" width="0.001" count="3" />
+        <bin index="102" start="0.102" width="0.001" count="3" />
+        <bin index="103" start="0.103" width="0.001" count="3" />
+        <bin index="105" start="0.105" width="0.001" count="3" />
+        <bin index="107" start="0.107" width="0.001" count="3" />
+        <bin index="108" start="0.108" width="0.001" count="3" />
+        <bin index="110" start="0.11" width="0.001" count="3" />
+        <bin index="112" start="0.112" width="0.001" count="3" />
+        <bin index="113" start="0.113" width="0.001" count="3" />
+        <bin index="115" start="0.115" width="0.001" count="3" />
+        <bin index="117" start="0.117" width="0.001" count="3" />
+        <bin index="118" start="0.118" width="0.001" count="3" />
+        <bin index="120" start="0.12" width="0.001" count="3" />
+        <bin index="121" start="0.121" width="0.001" count="3" />
+        <bin index="123" start="0.123" width="0.001" count="3" />
+        <bin index="125" start="0.125" width="0.001" count="3" />
+        <bin index="126" start="0.126" width="0.001" count="3" />
+        <bin index="128" start="0.128" width="0.001" count="3" />
+        <bin index="130" start="0.13" width="0.001" count="3" />
+        <bin index="131" start="0.131" width="0.001" count="3" />
+        <bin index="133" start="0.133" width="0.001" count="3" />
+        <bin index="135" start="0.135" width="0.001" count="3" />
+        <bin index="136" start="0.136" width="0.001" count="3" />
+        <bin index="138" start="0.138" width="0.001" count="3" />
+        <bin index="140" start="0.14" width="0.001" count="3" />
+        <bin index="141" start="0.141" width="0.001" count="3" />
+        <bin index="143" start="0.143" width="0.001" count="3" />
+        <bin index="145" start="0.145" width="0.001" count="3" />
+        <bin index="146" start="0.146" width="0.001" count="3" />
+        <bin index="148" start="0.148" width="0.001" count="3" />
+        <bin index="150" start="0.15" width="0.001" count="3" />
+        <bin index="151" start="0.151" width="0.001" count="3" />
+        <bin index="153" start="0.153" width="0.001" count="3" />
+        <bin index="155" start="0.155" width="0.001" count="3" />
+        <bin index="156" start="0.156" width="0.001" count="3" />
+        <bin index="158" start="0.158" width="0.001" count="3" />
+        <bin index="160" start="0.16" width="0.001" count="5" />
+        <bin index="161" start="0.161" width="0.001" count="1" />
+      </delayHistogram>
+      <jitterHistogram nBins="105" >
+        <bin index="0" start="0" width="0.001" count="113" />
+        <bin index="1" start="0.001" width="0.001" count="2315" />
+        <bin index="3" start="0.003" width="0.001" count="4" />
+        <bin index="4" start="0.004" width="0.001" count="2" />
+        <bin index="6" start="0.006" width="0.001" count="1" />
+        <bin index="8" start="0.008" width="0.001" count="2" />
+        <bin index="11" start="0.011" width="0.001" count="1" />
+        <bin index="16" start="0.016" width="0.001" count="1" />
+        <bin index="24" start="0.024" width="0.001" count="1" />
+        <bin index="26" start="0.026" width="0.001" count="1" />
+        <bin index="104" start="0.104" width="0.001" count="1" />
+      </jitterHistogram>
+      <packetSizeHistogram nBins="21" >
+        <bin index="2" start="40" width="20" count="3" />
+        <bin index="20" start="400" width="20" count="2440" />
+      </packetSizeHistogram>
+      <flowInterruptionsHistogram nBins="0" >
+      </flowInterruptionsHistogram>
+    </Flow>
+    <Flow flowId="2" timeFirstTxPacket="+45288399.0ns" timeFirstRxPacket="+90576798.0ns" timeLastTxPacket="+14393531486.0ns" timeLastRxPacket="+14439016684.0ns" delaySum="+60352525686.0ns" jitterSum="+465605.0ns" lastDelay="+45485198.0ns" txBytes="71132" rxBytes="71080" txPackets="1334" rxPackets="1333" lostPackets="1" timesForwarded="1333">
+      <delayHistogram nBins="46" >
+        <bin index="45" start="0.045" width="0.001" count="1333" />
+      </delayHistogram>
+      <jitterHistogram nBins="1" >
+        <bin index="0" start="0" width="0.001" count="1332" />
+      </jitterHistogram>
+      <packetSizeHistogram nBins="4" >
+        <bin index="2" start="40" width="20" count="1113" />
+        <bin index="3" start="60" width="20" count="220" />
+      </packetSizeHistogram>
+      <flowInterruptionsHistogram nBins="0" >
+      </flowInterruptionsHistogram>
+    </Flow>
+  </FlowStats>
+  <Ipv4FlowClassifier>
+    <Flow flowId="1" sourceAddress="10.1.1.1" destinationAddress="10.1.2.2" protocol="6" sourcePort="49153" destinationPort="2430">
+      <Dscp value="0x0" packets="2446" />
+    </Flow>
+    <Flow flowId="2" sourceAddress="10.1.2.2" destinationAddress="10.1.1.1" protocol="6" sourcePort="2430" destinationPort="49153">
+      <Dscp value="0x0" packets="1334" />
+    </Flow>
+  </Ipv4FlowClassifier>
+  <Ipv6FlowClassifier>
+  </Ipv6FlowClassifier>
+  <FlowProbes>
+    <FlowProbe index="0">
+      <FlowStats  flowId="1" packets="2446" bytes="1006676" delayFromFirstProbeSum="+111328400999.0ns" >
+      </FlowStats>
+      <FlowStats  flowId="2" packets="1333" bytes="71080" delayFromFirstProbeSum="+308528887.0ns" >
+      </FlowStats>
+    </FlowProbe>
+    <FlowProbe index="1">
+    </FlowProbe>
+    <FlowProbe index="2">
+      <FlowStats  flowId="1" packets="2446" bytes="1006676" delayFromFirstProbeSum="+0.0ns" >
+      </FlowStats>
+      <FlowStats  flowId="2" packets="1333" bytes="71080" delayFromFirstProbeSum="+60352525686.0ns" >
+      </FlowStats>
+    </FlowProbe>
+    <FlowProbe index="3">
+    </FlowProbe>
+    <FlowProbe index="4">
+      <FlowStats  flowId="1" packets="2443" bytes="1005440" delayFromFirstProbeSum="+131363643398.0ns" >
+      </FlowStats>
+      <FlowStats  flowId="2" packets="1334" bytes="71132" delayFromFirstProbeSum="+0.0ns" >
+      </FlowStats>
+    </FlowProbe>
+    <FlowProbe index="5">
+    </FlowProbe>
+  </FlowProbes>
+</FlowMonitor>
