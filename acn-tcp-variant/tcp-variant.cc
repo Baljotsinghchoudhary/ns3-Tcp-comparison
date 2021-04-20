@@ -28,6 +28,7 @@ node 1 (10.1.1.0)    |---L1-----x----L2----- |    node 2  (10.1.2.0)
 #include "ns3/event-id.h"
 #include "ns3/flow-monitor-helper.h"
 #include "ns3/ipv4-global-routing-helper.h"
+#include "ns3/netanim-module.h"
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE ("TcpVariantsComparison");
@@ -174,7 +175,7 @@ int main (int argc, char *argv[])
   //NS_LOG_LOGIC ("TCP ADU size is: " << tcp_adu_size);
 
   Config::SetDefault ("ns3::TcpSocket::SegmentSize", UintegerValue (tcp_adu_size));
-
+  
   // Set the simulation start and stop time
   float start_time = 0;
   float stop_time = start_time + duration;
@@ -297,6 +298,13 @@ int main (int argc, char *argv[])
   FlowMonitorHelper flowHelper;
   flowHelper.InstallAll ();
     
+  //net anim
+  AnimationInterface anim(file+"/anim.xml"); //to save file for netAnim
+anim.UpdateNodeDescription(sources.Get(0),"SOUCRE");
+
+anim.UpdateNodeDescription(gateways.Get(0),"Gateway");
+
+anim.UpdateNodeDescription(sinks.Get(0),"SINK");
 
   Simulator::Stop (Seconds (stop_time));
   Simulator::Run ();
