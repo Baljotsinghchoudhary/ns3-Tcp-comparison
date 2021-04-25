@@ -1,11 +1,11 @@
 /*
 
+Topology used 
 
--------------- -----                                      --------------
-                              |                                   |
-node 1 (10.1.1.0)    |---L1-----x----L2----- |    node 2  (10.1.2.0)
-                               |                0                  |              
-------------- --------                                     ---------------
+┌──────────┐                           ┌──────────┐                               ┌──────────┐
+│ NODE 1             │   link 1                │ NODE 0            │   link 2                   │  NODE 2            │
+│ SOURCE            ├──────────┤ GATEWAY          ├────────────┤  SINK                 │
+└──────────┘                           └──────────┘                               └──────────┘
 
 
 */
@@ -35,14 +35,17 @@ NS_LOG_COMPONENT_DEFINE ("TcpVariantsComparison");
 
 bool firstCwnd = true;
 bool firstSshThr = true;
+bool firstRtt=true;
 // output streams
 Ptr<OutputStreamWrapper> cWndStream;
 Ptr<OutputStreamWrapper> ssThreshStream;
 Ptr<OutputStreamWrapper> ackStream;
 Ptr<OutputStreamWrapper> congStateStream;
+Ptr<OutputStreamWrapper> rttStream;
 
 uint32_t cWndValue = 0;
 uint32_t ssThreshValue = 0;
+uint32_t rtovalue=0;
 
 
 static void
@@ -80,6 +83,28 @@ SsThreshTracer (uint32_t oldval, uint32_t newval)
     }
 }
 
+static void
+RttTracer (Time oldval, Time newval)
+{
+  if (firstRtt)
+    {
+      *rttStream->GetStream () << "0.0 " << oldval.GetSeconds () << std::endl;
+      firstRtt = false;
+    }
+  *rttStream->GetStream () << Simulator::Now ().GetSeconds () << " " << newval.GetSeconds () << std::endl;
+}
+
+static void
+CongStateTracer (TcpSocketState::TcpCongState_t old, TcpSocketState::TcpCongState_t newState)
+{
+  *congStateStream->GetStream () << Simulator::Now ().GetSeconds () << " " << newState << std::endl;
+}
+
+static void
+AckTracer (SequenceNumber32 old, SequenceNumber32 newAck)
+{
+  *ackStream->GetStream () << Simulator::Now ().GetSeconds () << " " << newAck << std::endl;
+}
 
 static void
 TraceCwnd (std::string cwnd_tr_file_name)
@@ -97,16 +122,15 @@ TraceSsThresh (std::string ssthresh_tr_file_name)
   Config::ConnectWithoutContext("/NodeList/1/$ns3::TcpL4Protocol/SocketList/0/SlowStartThreshold", MakeCallback (&SsThreshTracer));
 }
 static void
-AckTracer (SequenceNumber32 old, SequenceNumber32 newAck)
+TraceRtt (std::string rtt_tr_file_name)
 {
-  *ackStream->GetStream () << Simulator::Now ().GetSeconds () << " " << newAck << std::endl;
-}
+  AsciiTraceHelper ascii;
+  rttStream = ascii.CreateFileStream (rtt_tr_file_name.c_str ());
+  Config::ConnectWithoutContext ("/NodeList/1/$ns3::TcpL4Protocol/SocketList/0/RTT", MakeCallback (&RttTracer));
+}  
 
-static void
-CongStateTracer (TcpSocketState::TcpCongState_t old, TcpSocketState::TcpCongState_t newState)
-{
-  *congStateStream->GetStream () << Simulator::Now ().GetSeconds () << " " << newState << std::endl;
-}
+
+
 static void
 TraceAck (std::string &ack_file_name)
 {
@@ -141,8 +165,7 @@ int main (int argc, char *argv[])
   CommandLine cmd;
   cmd.AddValue ("transport_prot", "Transport protocol to use: TcpNewReno, TcpLinuxReno, "
                  "TcpHybla, TcpHighSpeed, TcpHtcp, TcpVegas, TcpScalable, TcpVeno, "
-                 "TcpBic, TcpYeah, TcpIllinois, TcpWestwood, TcpWestwoodPlus, TcpLedbat, "
-         "TcpLp, TcpDctcp, TcpCubic", transport_prot);
+                 "TcpBic, TcpYeah, TcpIllinois, TcpWestwood, TcpWestwoodPlus, TcpLedbat", transport_prot);
   cmd.AddValue ("error_p", "Packet error rate", error_p);
   cmd.AddValue ("bandwidth", "Bottleneck bandwidth", bandwidth);
   cmd.AddValue ("delay", "Bottleneck bandwidth", delay);
@@ -152,8 +175,8 @@ int main (int argc, char *argv[])
   cmd.AddValue ("mtu", "Size of IP packets to send in bytes", mtu_bytes);
 
   cmd.Parse (argc, argv);
+  NS_LOG_UNCOND(transport_prot+" Simulation");
   std::string file="scratch/acn-tcp-variant/"+transport_prot;
-  std::string flow_monitor_file = file+"/flow";
   mkdir(file.c_str(), 0777);
   SeedManager::SetSeed (1);
   SeedManager::SetRun (run);
@@ -175,9 +198,10 @@ int main (int argc, char *argv[])
   //NS_LOG_LOGIC ("TCP ADU size is: " << tcp_adu_size);
 
   Config::SetDefault ("ns3::TcpSocket::SegmentSize", UintegerValue (tcp_adu_size));
-  
+
+
   // Set the simulation start and stop time
-  float start_time = 0;
+  float start_time = 0.0;
   float stop_time = start_time + duration;
   transport_prot = std::string ("ns3::") + transport_prot;
   
@@ -229,7 +253,7 @@ int main (int argc, char *argv[])
 
   PointToPointHelper link2;
   link2.SetDeviceAttribute ("DataRate", StringValue (bandwidth));
-  link2.SetChannelAttribute ("Delay", StringValue (delay));
+  link2.SetChannelAttribute ("Delay", StringValue (access_delay));
   link2.SetDeviceAttribute ("ReceiveErrorModel", PointerValue (&error_model));
 
   
@@ -264,17 +288,22 @@ int main (int argc, char *argv[])
   
   AddressValue remoteAddress (InetSocketAddress (interfaces2.GetAddress (1), port));
 
+ // source traffic genrator
   BulkSendHelper source ("ns3::TcpSocketFactory", Address ());
+
+
 
   source.SetAttribute ("Remote", remoteAddress);
   source.SetAttribute ("SendSize", UintegerValue (tcp_adu_size));
   // 0 means unlimited
   source.SetAttribute ("MaxBytes", UintegerValue (int(data_mbytes * 1000000)));
-        
+  
+
   ApplicationContainer sourceApp = source.Install (sources.Get (0));
 
   sourceApp.Start (Seconds (start_time));
   sourceApp.Stop (Seconds (stop_time-3));
+
 
   
   ApplicationContainer sinkApp = sinkHelper.Install (sinks);
@@ -290,6 +319,7 @@ int main (int argc, char *argv[])
   Simulator::Schedule (Seconds (0.00001), &TraceSsThresh, file + "/ssth.data");
   Simulator::Schedule (Seconds (0.00001), &TraceAck, file + "/ack.data");
   Simulator::Schedule (Seconds (0.00001), &TraceCongState, file + "/cong-state.data");
+  Simulator::Schedule (Seconds (0.00001), &TraceRtt, file + "/rtt.data");
 
   link2.EnablePcapAll (file+"/link2", true);
   link1.EnablePcapAll (file+"/link1", true);
@@ -300,15 +330,15 @@ int main (int argc, char *argv[])
     
   //net anim
   AnimationInterface anim(file+"/anim.xml"); //to save file for netAnim
-anim.UpdateNodeDescription(sources.Get(0),"SOUCRE");
+ anim.UpdateNodeDescription(sources.Get(0),"SOUCRE");
 
-anim.UpdateNodeDescription(gateways.Get(0),"Gateway");
+ anim.UpdateNodeDescription(gateways.Get(0),"Gateway");
 
-anim.UpdateNodeDescription(sinks.Get(0),"SINK");
+ anim.UpdateNodeDescription(sinks.Get(0),"SINK");
 
   Simulator::Stop (Seconds (stop_time));
   Simulator::Run ();
-  flowHelper.SerializeToXmlFile ( flow_monitor_file, true, true);
+  flowHelper.SerializeToXmlFile (file+"/flow.xml", true, true);
   Simulator::Destroy ();
   return 0;
 }
