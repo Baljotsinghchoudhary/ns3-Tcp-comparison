@@ -22,7 +22,7 @@
     * Cong-state.data: Congestion state data file
 6. Navigate to ns-3.30 folder and Run <strong> python3 scratch/acn-tcp-variant/plotscript.py</strong>
 7. Now you can see plot.png in each <tcp-variant> folder and ack.png in ack.png in acn-tcp-variant folder these file will be shown later
-8. To parse flow monitor file either open in netanim and change stats to flow monitor file or copy src/flow-monitor/examples/flowmon-parse-result.py into ns3 folder and Run command <strong>python2 flowmon-parse-result.py scratch/acn-tcp-variant/<name>/flow.xml</strong>
+8. To parse flow monitor file either open in netanim and change stats to flow monitor file or copy src/flow-monitor/examples/flowmon-parse-results.py into ns3 folder and Run command <strong>python2 flowmon-parse-results.py scratch/acn-tcp-variant/<name>/flow.xml</strong>
 9. To visualize Use netanim and open anim.xml file in NetAnim
 10. To Analyse  Ascii trace download tracemetrics and open file in it
 11. To analyse Pcap file open file in wireshark
