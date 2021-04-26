@@ -1,8 +1,8 @@
 # Requirements:
-•	Linux system
-•	Ns-3 network simulation.
-•	Python 3
-•	Numpy, Pandas, Matplotlib for graph plotting
+* Linux system
+* Ns-3 network simulation.
+* Python 3
+* Numpy, Pandas, Matplotlib for graph plotting
 
 # Installation Steps:
 
@@ -30,6 +30,7 @@
 # PLOTS
 ![IMG](/acn-tcp-variant/TcpNewReno/plot.png)
 ![IMG](/acn-tcp-variant/TcpScalable/plot.png)
+![IMG](/acn-tcp-variant/TcpWestwood/plot.png)
 ![IMG](/acn-tcp-variant/ack-plot.png)
 
  
