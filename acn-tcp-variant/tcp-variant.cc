@@ -160,6 +160,7 @@ int main (int argc, char *argv[])
   uint32_t mtu_bytes = 400;
   float duration = 15;
   uint32_t run = 0;
+  uint32_t cbr=0;
   
 
   CommandLine cmd;
@@ -173,6 +174,7 @@ int main (int argc, char *argv[])
   cmd.AddValue ("access_delay", "Access link delay", access_delay);
   cmd.AddValue ("data", "Number of Megabytes of data to transmit", data_mbytes);
   cmd.AddValue ("mtu", "Size of IP packets to send in bytes", mtu_bytes);
+  cmd.AddValue("cbr","No of cbr traffic genrator",cbr);
 
   cmd.Parse (argc, argv);
   NS_LOG_UNCOND(transport_prot+" Simulation");
@@ -302,7 +304,7 @@ int main (int argc, char *argv[])
   ApplicationContainer sourceApp = source.Install (sources.Get (0));
 
   sourceApp.Start (Seconds (start_time));
-  sourceApp.Stop (Seconds (stop_time-3));
+  sourceApp.Stop (Seconds (stop_time));
 
 
   
@@ -310,6 +312,27 @@ int main (int argc, char *argv[])
   sinkApp.Start (Seconds (start_time));
   sinkApp.Stop (Seconds (stop_time));
 
+  // traffic genrator installed in node 0
+  ApplicationContainer cbrApps;
+  ApplicationContainer cbrSinkApps;
+  uint32_t cbrPort=6759;
+
+  for(uint32_t i=0; i<cbr; i++)
+    {
+       
+      OnOffHelper onOffHelper ("ns3::UdpSocketFactory", InetSocketAddress (interfaces2.GetAddress (1), cbrPort));
+      onOffHelper.SetAttribute ("PacketSize", UintegerValue (1024));
+      onOffHelper.SetAttribute ("DataRate", StringValue ("1Mbps"));
+      cbrApps.Add (onOffHelper.Install (gateways.Get (0)));
+      cbrApps.Start (Seconds (7));
+      cbrApps.Stop (Seconds (10));
+
+      
+    }
+    PacketSinkHelper sink ("ns3::UdpSocketFactory", InetSocketAddress (Ipv4Address::GetAny (), cbrPort));
+    cbrSinkApps.Add(sink.Install (sinks.Get (0)));
+    cbrSinkApps.Start (Seconds (5));
+    cbrSinkApps.Stop (Seconds (10));
       
 
   // Set up tracing 
