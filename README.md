@@ -8,7 +8,7 @@
 
 1. Go to [link](https://github.com/Baljotsinghchoudhary/ns3-Tcp-comparison) and place the folder in scratch directory of ns3 
 2. Navigate to ns3 folder /ns-3.30 and open terminal
-3. Run Python3 <strong> scratch/acn-tcp-variant/runscript.py </strong>
+3. Run <strong> Python3 scratch/acn-tcp-variant/runscript.py </strong>
 4. After this you can see various folder with name < tcp variant > in acn-tcp-variant folder
 5. 	Content of each <tcp-variant> folder
     * ack.data : acknowledged sequence no with time
